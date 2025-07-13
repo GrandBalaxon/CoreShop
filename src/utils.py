@@ -18,16 +18,9 @@ def get_categories_objects_from_json(file_name: str) -> Optional[List[Category]]
     try:
         file_path = Path(__file__).parent.parent / "data" / file_name
 
-        try:
-            with open(file_path, encoding="UTF-8") as file:
-                list_ = json.load(file)
-                logger.info(f"Успешно изъято {len(list_)} словаря-категории из файла {file_name}")
-        except FileNotFoundError:
-            logger.error(f"Нет такого файла: {file_name}")
-            return None
-        except json.JSONDecodeError as e:
-            logger.error(f"Ошибка парсинга файла {file_name}: {str(e)}")
-            return None
+        with open(file_path, encoding="UTF-8") as file:
+            list_ = json.load(file)
+            logger.info(f"Успешно изъято {len(list_)} словаря-категории из файла {file_name}")
 
         categories_list = []
 
@@ -44,12 +37,13 @@ def get_categories_objects_from_json(file_name: str) -> Optional[List[Category]]
         logger.info("Список категорий успешно обработан")
         return categories_list
 
+    except FileNotFoundError:
+        logger.error(f"Нет такого файла: {file_name}")
+    except json.JSONDecodeError as e:
+        logger.error(f"Ошибка парсинга файла {file_name}: {str(e)}")
+    except KeyError as e:
+        logger.error(f"Отсутствует ключ: {e}", exc_info=True)
     except Exception as e:
-        logger.error(f"непредвиденная ошибка: {str(e)}")
-        return None
+        logger.error(f"непредвиденная ошибка: {str(e)}", exc_info=True)
 
-
-if __name__ == "__main__":
-    _name = "products.json"
-    ew = get_categories_objects_from_json(_name)
-    print(ew)
+    return None

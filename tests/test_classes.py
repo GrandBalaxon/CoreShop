@@ -13,6 +13,10 @@ def test_product_class_object_creation():
 
 def test_category_class_object_creation(a_test_product):
     """ проверка правильной инициализации нескольких объектов класса Category. """
+    # Обнуляем атрибуты класса для теста
+    Category.category_count = 0
+    Category.product_count = 0
+
     category_1 = Category("Category name UNO",
                         "test description #1",
                         [a_test_product, a_test_product])
