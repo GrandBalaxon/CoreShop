@@ -1,7 +1,7 @@
 import json
 from unittest.mock import mock_open
 
-from src.classes import Category, Product
+from src.product import Category, Product
 from src.utils import get_categories_objects_from_json
 
 

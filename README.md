@@ -45,7 +45,7 @@
 классов `Product` и `Category`.
 
 ```bash
-python main.py
+python 14.1_main.py
 ```
 
 ## ⚙️ Технические детали
