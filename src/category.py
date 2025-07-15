@@ -25,7 +25,11 @@ class Category:
 
     def add_product(self, product_to_add: Product):
         """ Добавляет продукт в категорию. """
-        self.__products.append(product_to_add)
+        if isinstance(product_to_add, Product):
+            self.__products.append(product_to_add)
+
+            Category.category_count += 1
+            Category.product_count += 1
 
     @property
     def products_list(self):
@@ -33,7 +37,7 @@ class Category:
         return self.__products
 
     @property
-    def products_info_str(self) -> str:
+    def products(self) -> str:
         """
         Геттер для получения списка товаров в виде строки.
 
