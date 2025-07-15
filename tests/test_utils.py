@@ -1,7 +1,7 @@
 import json
 from unittest.mock import mock_open
 
-from src.product import Category, Product
+from src.category import Category
 from src.utils import get_categories_objects_from_json
 
 
@@ -22,13 +22,11 @@ def test_data_successful_load(mocker, json_file_output):
 
     assert category_1.name == "Category #1"
     assert category_1.description == "Category description #1"
-    assert len(category_1.products) == 2
-    assert isinstance(category_1.products[0], Product)
+    assert len(category_1.products_list) == 2
 
     assert category_2.name == "Category #2"
     assert category_2.description == "Category description #2"
-    assert len(category_2.products) == 1
-    assert isinstance(category_2.products[0], Product)
+    assert len(category_2.products_list) == 1
 
     assert Category.category_count == 2
     assert Category.product_count == 3

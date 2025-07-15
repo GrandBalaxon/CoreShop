@@ -28,12 +28,18 @@ class Category:
         self.__products.append(product_to_add)
 
     @property
-    def products(self) -> str:
+    def products_list(self):
+        """ Геттер для получения списка товаров в виде списка. """
+        return self.__products
+
+    @property
+    def products_info_str(self) -> str:
         """
         Геттер для получения списка товаров в виде строки.
 
         :return: Строка, содержащая список товаров в формате: "Название продукта, 80 руб. Остаток: 15 шт."
-                 Если список товаров пуст, возвращает пустую строку.
+        Каждый новый товар отображается на новой строке.
+        Если список товаров пуст, возвращает пустую строку.
         """
         if not self.__products:
             return ""

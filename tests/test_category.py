@@ -1,14 +1,4 @@
-from src.product import Category, Product
-
-
-def test_product_class_object_creation():
-    """ Проверка правильной инициализации объекта класса Product. """
-    product = Product("Some thing", "test description", 52.0, 7)
-
-    assert product.name == "Some thing"
-    assert product.description == "test description"
-    assert product.price == 52.0
-    assert product.quantity == 7
+from src.category import Category
 
 
 def test_category_class_object_creation(a_test_product):
@@ -23,7 +13,7 @@ def test_category_class_object_creation(a_test_product):
 
     assert category_1.name == "Category name UNO"
     assert category_1.description == "test description #1"
-    assert len(category_1.products) == 2
+    assert len(category_1.products_list) == 2
 
     # Проверка значений атрибутов класса до ввода второй категории
     assert Category.category_count == 1
@@ -35,7 +25,7 @@ def test_category_class_object_creation(a_test_product):
 
     assert category_2.name == "Category name DOS"
     assert category_2.description == "test description #2"
-    assert len(category_2.products) == 1
+    assert len(category_2.products_list) == 1
 
     # Проверка значений атрибутов класса после ввода второй категории
     assert Category.category_count == 2

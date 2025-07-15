@@ -13,10 +13,10 @@ if __name__ == "__main__":
         [product1, product2, product3]
     )
 
-    print(category1.products, "\n")
+    print(category1.products_info_str, "\n")
     product4 = Product("55\" QLED 4K", "Фоновая подсветка", 123000.0, 7)
     category1.add_product(product4)
-    print(category1.products, "\n")
+    print(category1.products_info_str, "\n")
     print(category1.product_count, "\n")
 
     new_product = Product.new_product(

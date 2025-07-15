@@ -62,5 +62,14 @@ class Product:
         """
         if new_price <= 0:
             print("Цена не должна быть нулевая или отрицательная")
+        elif new_price < self.__price:
+            print(f"Новая цена {float(new_price)} ниже предыдущей {self.__price}.")
+            user_input = input("Подтвердите операцию (Y/N): ")
+
+            if user_input.lower() == "y":
+                self.__price = float(new_price)
+            else:
+                print(f"Цена товара {self.name} осталась прежней: {self.__price}")
+
         else:
-            self.__price = new_price
+            self.__price = float(new_price)
