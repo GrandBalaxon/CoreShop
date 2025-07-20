@@ -1,6 +1,7 @@
 import pytest
 
 from src.product import Product
+from src.category import Category
 
 
 @pytest.fixture()
@@ -8,6 +9,16 @@ def a_test_product():
     product = Product("test product", "description", 100.0, 5)
 
     return product
+
+
+@pytest.fixture()
+def category_obj(a_test_product):
+  cat = Category(
+    "category name",
+    "category description",
+    [a_test_product, a_test_product, a_test_product]
+  )
+  return cat
 
 
 @pytest.fixture()
