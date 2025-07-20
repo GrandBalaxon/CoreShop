@@ -1,5 +1,6 @@
 from src.category import Category
 from src.product import Product
+from src.iterator import CategoryIterator
 
 
 if __name__ == "__main__":
@@ -16,6 +17,7 @@ if __name__ == "__main__":
         "Смартфоны, как средство не только коммуникации, но и получения дополнительных функций для удобства жизни",
         [product1, product2, product3]
     )
+    iter_ = iter(CategoryIterator(category1))
 
     print(str(category1))
 
@@ -24,3 +26,6 @@ if __name__ == "__main__":
     print(product1 + product2)
     print(product1 + product3)
     print(product2 + product3)
+
+    for i in iter_:
+        print(i)
