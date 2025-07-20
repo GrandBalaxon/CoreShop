@@ -23,6 +23,13 @@ class Category:
         Category.category_count += 1
         Category.product_count += len(self.__products)
 
+    def __str__(self):
+        total_count = 0
+        for pr in self.__products:
+            total_count += pr.quantity
+
+        return f"{self.name}, количество продуктов: {total_count} шт."
+
     def add_product(self, product_to_add: Product):
         """ Добавляет продукт в категорию. """
         if isinstance(product_to_add, Product):
@@ -50,6 +57,6 @@ class Category:
 
         output_str = ""
         for pr in self.__products:
-            output_str += f"{pr.name}, {pr.price} руб. Остаток: {pr.quantity} шт.\n"
+            output_str += f"{str(pr)}\n"
 
         return output_str.strip()
