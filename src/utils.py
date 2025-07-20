@@ -3,7 +3,8 @@ import logging
 from pathlib import Path
 from typing import List, Optional
 
-from src.classes import Category, Product
+from src.category import Category
+from src.product import Product
 
 logger = logging.getLogger("utils")
 
