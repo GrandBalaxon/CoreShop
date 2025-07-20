@@ -18,4 +18,4 @@ def test_category_iterator_normal_functioning(category_obj, a_test_product):
 def test_type_error(a_test_product):
     """ Тестируем поднятие ошибки TypeError. """
     with pytest.raises(TypeError, match="Неверный тип данных."):
-        iter_ = iter(CategoryIterator(a_test_product))
+        iter(CategoryIterator(a_test_product))
