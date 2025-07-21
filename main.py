@@ -56,10 +56,10 @@ if __name__ == '__main__':
     print(grass2.color)
 
     smartphone_sum = smartphone1 + smartphone2
-    print(smartphone_sum)
+    print("Сумма операции сложения по товарам класса Smartphone:", smartphone_sum)
 
     grass_sum = grass1 + grass2
-    print(grass_sum)
+    print("Сумма операции сложения по товарам класса LawnGrass:", grass_sum)
 
     try:
         invalid_sum = smartphone1 + grass1

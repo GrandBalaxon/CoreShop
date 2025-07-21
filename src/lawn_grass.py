@@ -9,3 +9,11 @@ class LawnGrass(Product):
         self.country = country
         self.germination_period = germination_period
         self.color = color
+
+    def __add__(self, other: "LawnGrass"):
+        """ Сложение с продуктами одинаковой категории. """
+        if type(other) is LawnGrass:
+            total_products_price = self.price * self.quantity + other.price * other.quantity
+            return total_products_price
+        else:
+            raise TypeError
