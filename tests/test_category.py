@@ -1,3 +1,5 @@
+import pytest
+
 from src.category import Category
 
 
@@ -65,7 +67,8 @@ def test_failed_attempt_to_add_not_a_product(a_test_product):
     assert Category.product_count == 2
 
     non_product = TestClass(6)
-    category_1.add_product(non_product)
+    with pytest.raises(TypeError):
+        category_1.add_product(non_product)
 
     assert len(category_1.products_list) == 2
     assert Category.product_count == 2
