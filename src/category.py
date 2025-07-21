@@ -10,6 +10,8 @@ class Category:
         name (str): Название категории
         description (str): Описание категории
         __products (List[Product]): Список продуктов
+        category_count: Счетчик одновременно существующих разных категорий товаров
+        product_count: Счетчик видов товаров во всех категориях
     """
 
     category_count: int = 0
@@ -31,16 +33,16 @@ class Category:
         return f"{self.name}, количество продуктов: {total_count} шт."
 
     def add_product(self, product_to_add: Product):
-        """ Добавляет продукт в категорию. """
+        """Добавляет продукт в категорию."""
         if isinstance(product_to_add, Product):
             self.__products.append(product_to_add)
-
-            Category.category_count += 1
             Category.product_count += 1
+        else:
+            raise TypeError
 
     @property
     def products_list(self):
-        """ Геттер для получения списка товаров в виде списка. """
+        """Геттер для получения списка товаров в виде списка."""
         return self.__products
 
     @property

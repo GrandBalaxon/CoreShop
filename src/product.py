@@ -60,7 +60,7 @@ class Product:
 
     @property
     def price(self):
-        """ Геттер для получения цены товара. """
+        """Геттер для получения цены товара."""
         return self.__price
 
     @price.setter
