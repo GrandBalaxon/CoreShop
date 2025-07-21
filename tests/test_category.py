@@ -91,3 +91,8 @@ def test_products_info_str_empty():
 
     result = category_1.products
     assert result == ""
+
+
+def test_category_obj_str_representation(category_obj):
+    """ Проверка правильной работы переопределенного метода __str__.  """
+    assert str(category_obj) == "category name, количество продуктов: 15 шт."

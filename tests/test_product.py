@@ -81,3 +81,10 @@ def test_adding_new_price_lower_than_current(a_test_product, mocker, capsys):
     product.price = 500.0
 
     assert product.price == 500.0
+
+
+def test_adding_two_products(a_test_product):
+    """ Тестируем сложение двух товаров. """
+    result = a_test_product + a_test_product
+
+    assert result == 1000.0

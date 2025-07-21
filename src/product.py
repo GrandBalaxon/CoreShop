@@ -7,7 +7,7 @@ class Product:
     Attributes:
         name (str): Название товара
         description (str): Описание товара
-        price (float): Цена товара
+        __price (float): Цена товара
         quantity (int): Количество товара на складе
     """
 
@@ -20,6 +20,14 @@ class Product:
         self.quantity = quantity
 
         Product.__products_list.append(self)
+
+    def __str__(self):
+        return f"{self.name}, {self.__price} руб. Остаток: {self.quantity} шт."
+
+    def __add__(self, other: "Product"):
+        total_products_price = self.__price * self.quantity + other.__price * other.quantity
+
+        return total_products_price
 
     @classmethod
     def new_product(cls, product_data: Dict[str, Any]):
