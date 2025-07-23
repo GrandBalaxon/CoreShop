@@ -1,9 +1,7 @@
-from typing import List, TypeVar
+from typing import List
 
-from src.base_abs import ProductContainer
+from src.base_abs import ProductContainer, ProductType
 from src.product import Product
-
-ProductType = TypeVar("ProductType", bound=Product)
 
 
 class Category(ProductContainer):

@@ -1,13 +1,14 @@
 from abc import ABC, abstractmethod
-from typing import TypeVar
+from typing import TYPE_CHECKING, TypeVar
 
-from src.product import Product
+if TYPE_CHECKING:
+    from src.product import Product
 
-ProductType = TypeVar("ProductType", bound=Product)
+ProductType = TypeVar("ProductType", bound="Product")
 
 
 class BaseProduct(ABC):
-    """ Абстрактный базовый класс для товара. """
+    """Абстрактный базовый класс для товара."""
 
     @abstractmethod
     def __init__(self):
@@ -19,7 +20,7 @@ class BaseProduct(ABC):
 
 
 class ProductContainer(ABC):
-    """ Абстрактный базовый класс для контейнеров с продуктами любого типа. """
+    """Абстрактный базовый класс для контейнеров с продуктами любого типа."""
 
     @abstractmethod
     def __init__(self):

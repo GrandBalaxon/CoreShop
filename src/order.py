@@ -1,9 +1,5 @@
-from typing import TypeVar
-
-from src.base_abs import ProductContainer
+from src.base_abs import ProductContainer, ProductType
 from src.product import Product
-
-ProductType = TypeVar("ProductType", bound=Product)
 
 
 class Order(ProductContainer):
