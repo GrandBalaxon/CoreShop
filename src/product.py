@@ -1,7 +1,9 @@
 from typing import Any, Dict, List
 
+from src.base_product import BaseProduct
 
-class Product:
+
+class Product(BaseProduct):
     """Класс для представления товара в магазине
 
     Attributes:
