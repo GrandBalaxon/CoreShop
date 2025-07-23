@@ -1,3 +1,5 @@
+import pytest
+
 from src.product import Product
 
 
@@ -88,3 +90,9 @@ def test_adding_two_products(a_test_product):
     result = a_test_product + a_test_product
 
     assert result == 1000.0
+
+
+def test_type_error_while_adding_up_product_and_non_product(a_test_product):
+    """ Тестируем возбуждение ошибки при сложении товара и НЕ товара. """
+    with pytest.raises(TypeError):
+        result = a_test_product + 2
