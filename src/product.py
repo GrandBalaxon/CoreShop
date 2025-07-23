@@ -1,6 +1,6 @@
 from typing import Any, Dict, List
 
-from src.base_product import BaseProduct
+from src.base_abs import BaseProduct
 from src.print_mixin import PrintMixin
 
 
