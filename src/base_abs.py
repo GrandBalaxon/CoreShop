@@ -11,7 +11,7 @@ class BaseProduct(ABC):
     """Абстрактный базовый класс для товара."""
 
     @abstractmethod
-    def __init__(self):
+    def __init__(self) -> None:
         pass
 
     @abstractmethod

@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Union
 
 from src.base_abs import ProductContainer, ProductType
 from src.product import Product
@@ -18,7 +18,7 @@ class Category(ProductContainer):
     category_count: int = 0
     product_count: int = 0
 
-    def __init__(self, name: str, description: str, products: List[ProductType]):
+    def __init__(self, name: str, description: str, products: List[ProductType]) -> None:
         self.name = name
         self.description = description
 
@@ -33,14 +33,14 @@ class Category(ProductContainer):
         Category.category_count += 1
         Category.product_count += len(self.__products)
 
-    def __str__(self):
+    def __str__(self) -> str:
         total_count = 0
         for pr in self.__products:
             total_count += pr.quantity
 
         return f"{self.name}, количество продуктов: {total_count} шт."
 
-    def add_product(self, product_to_add: ProductType):
+    def add_product(self, product_to_add: ProductType) -> None:
         """Добавляет продукт в категорию."""
         if isinstance(product_to_add, Product):
             self.__products.append(product_to_add)
@@ -49,7 +49,7 @@ class Category(ProductContainer):
             raise TypeError
 
     @property
-    def products_list(self):
+    def products_list(self) -> List[ProductType]:
         """Геттер для получения списка товаров в виде списка."""
         return self.__products
 
@@ -70,3 +70,15 @@ class Category(ProductContainer):
             output_str += f"{str(pr)}\n"
 
         return output_str.strip()
+
+    def middle_price(self) -> Union[float, int]:
+        """
+        Метод для расчёта среднего ценника всех товаров в категории.
+        При пустом списке товаров вернет 0.
+        """
+        try:
+            mid_price = sum([x.price for x in self.__products]) / len(self.__products)
+        except ZeroDivisionError:
+            return 0
+        else:
+            return round(mid_price, 2)
