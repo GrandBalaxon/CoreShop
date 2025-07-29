@@ -1,9 +1,10 @@
 from typing import List
 
+from src.base_abs import ProductContainer, ProductType
 from src.product import Product
 
 
-class Category:
+class Category(ProductContainer):
     """Класс для представления категории товаров в магазине
 
     Attributes:
@@ -17,9 +18,16 @@ class Category:
     category_count: int = 0
     product_count: int = 0
 
-    def __init__(self, name: str, description: str, products: List[Product]):
+    def __init__(self, name: str, description: str, products: List[ProductType]):
         self.name = name
         self.description = description
+
+        # Проверяем, что продукты категории имеют один и тот же класс
+        if len(products) > 1:
+            category_class = products[0].__class__
+            for pr in products[1:]:
+                if pr.__class__ is not category_class:
+                    raise TypeError("В категории товары должны иметь одинаковый класс.")
         self.__products = products
 
         Category.category_count += 1
@@ -32,7 +40,7 @@ class Category:
 
         return f"{self.name}, количество продуктов: {total_count} шт."
 
-    def add_product(self, product_to_add: Product):
+    def add_product(self, product_to_add: ProductType):
         """Добавляет продукт в категорию."""
         if isinstance(product_to_add, Product):
             self.__products.append(product_to_add)

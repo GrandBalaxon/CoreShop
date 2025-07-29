@@ -99,3 +99,11 @@ def test_products_info_str_empty():
 def test_category_obj_str_representation(category_obj):
     """ Проверка правильной работы переопределенного метода __str__.  """
     assert str(category_obj) == "category name, количество продуктов: 15 шт."
+
+
+def test_type_error_with_different_products_classes(a_test_product, a_test_smartphone):
+    """ Проверка возбуждения ошибки при попытке создать категорию товаров, добавляя товары разных классов. """
+    with pytest.raises(TypeError, match="В категории товары должны иметь одинаковый класс."):
+        category_1 = Category("Category name UNO",
+                              "test description #1",
+                              [a_test_smartphone, a_test_product])

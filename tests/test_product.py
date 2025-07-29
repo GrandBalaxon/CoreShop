@@ -96,3 +96,11 @@ def test_type_error_while_adding_up_product_and_non_product(a_test_product):
     """ Тестируем возбуждение ошибки при сложении товара и НЕ товара. """
     with pytest.raises(TypeError):
         result = a_test_product + 2
+
+
+def test_print_mixin(capsys):
+    """ Тест вывода репрезентации товара в консоль при создании нового экземпляра класса Product. """
+    product = Product("Product #1", "Description #1", 100.0, 1)
+    captured = capsys.readouterr()
+
+    assert captured.out.strip() == "Product(Product #1, Description #1, 100.0, 1)"

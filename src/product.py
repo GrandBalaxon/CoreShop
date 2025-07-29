@@ -1,7 +1,10 @@
 from typing import Any, Dict, List
 
+from src.base_abs import BaseProduct
+from src.print_mixin import PrintMixin
 
-class Product:
+
+class Product(PrintMixin, BaseProduct):
     """Класс для представления товара в магазине
 
     Attributes:
@@ -20,6 +23,7 @@ class Product:
         self.quantity = quantity
 
         Product.__products_list.append(self)
+        super().__init__()
 
     def __str__(self):
         return f"{self.name}, {self.__price} руб. Остаток: {self.quantity} шт."
