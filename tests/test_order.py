@@ -20,10 +20,12 @@ def test_order_product_addition_failure(a_test_smartphone):
         order.add_product(a_test_smartphone)
 
 
-def test_type_error_while_adding_a_non_product_obj_to_an_order():
-    """ Тест ошибки при добавлении объекта не класса Product или дочерних в заказ. """
-    with pytest.raises(TypeError):
-        order = Order("Not a Product", 5)
+def test_adding_a_non_product_obj_to_an_order(capsys):
+    """ Тест поведения при добавлении объекта не класса Product или дочерних в заказ. """
+    order = Order("Not a Product", 5)
+    captured = capsys.readouterr()
+
+    assert "Несовместимый тип товара." in captured.out
 
 
 def test_str_method(a_test_smartphone):

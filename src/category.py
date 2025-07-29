@@ -1,7 +1,7 @@
 from typing import List, Union
 
 from src.base_abs import ProductContainer, ProductType
-from src.product import Product
+from src.exceptions import ZeroQuantityError
 
 
 class Category(ProductContainer):
@@ -11,6 +11,7 @@ class Category(ProductContainer):
         name (str): Название категории
         description (str): Описание категории
         __products (List[Product]): Список продуктов
+        __category_class: Класс товаров в категории (одинаков для каждого товара категории)
         category_count: Счетчик одновременно существующих разных категорий товаров
         product_count: Счетчик видов товаров во всех категориях
     """
@@ -23,11 +24,12 @@ class Category(ProductContainer):
         self.description = description
 
         # Проверяем, что продукты категории имеют один и тот же класс
-        if len(products) > 1:
-            category_class = products[0].__class__
-            for pr in products[1:]:
-                if pr.__class__ is not category_class:
-                    raise TypeError("В категории товары должны иметь одинаковый класс.")
+        if len(products) >= 1:
+            self.__category_class = products[0].__class__
+            if len(products) > 1:
+                for pr in products[1:]:
+                    if pr.__class__ is not self.__category_class:
+                        raise TypeError("В категории товары должны иметь одинаковый класс.")
         self.__products = products
 
         Category.category_count += 1
@@ -42,11 +44,21 @@ class Category(ProductContainer):
 
     def add_product(self, product_to_add: ProductType) -> None:
         """Добавляет продукт в категорию."""
-        if isinstance(product_to_add, Product):
+        try:
+            if not isinstance(product_to_add, self.__category_class):
+                raise TypeError("Несовместимый тип товара.")
+
+            if product_to_add.quantity == 0:
+                raise ZeroQuantityError()
+
             self.__products.append(product_to_add)
             Category.product_count += 1
-        else:
-            raise TypeError
+            print("Товар успешно добавлен.")
+
+        except (TypeError, ZeroQuantityError) as e:
+            print(str(e))
+        finally:
+            print("Обработка добавления товара завершена.")
 
     @property
     def products_list(self) -> List[ProductType]:

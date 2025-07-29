@@ -51,7 +51,7 @@ def test_add_product_method(a_test_product):
     assert Category.product_count == 3
 
 
-def test_failed_attempt_to_add_not_a_product(a_test_product):
+def test_failed_attempt_to_add_not_a_product(a_test_product, capsys):
     """ Проверка на добавления объекта класса НЕ Product в объект Category через метод .add_product """
     class TestClass:
         def __init__(self, test_param: int):
@@ -67,9 +67,10 @@ def test_failed_attempt_to_add_not_a_product(a_test_product):
     assert Category.product_count == 2
 
     non_product = TestClass(6)
-    with pytest.raises(TypeError):
-        category_1.add_product(non_product)
+    category_1.add_product(non_product)
+    captured = capsys.readouterr()
 
+    assert "Несовместимый тип товара" in captured.out
     assert len(category_1.products_list) == 2
     assert Category.product_count == 2
 
