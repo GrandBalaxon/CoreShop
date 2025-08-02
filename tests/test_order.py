@@ -32,3 +32,16 @@ def test_str_method(a_test_smartphone):
     """ Проверяем вывод через функцию str(). """
     order = Order(a_test_smartphone, 5)
     assert str(order) == "Заказ: Nothing Phone 2(a), 5 шт. Итого: 260000.0 руб."
+
+
+def test_zero_quantity(a_test_smartphone, capsys):
+    """"""
+    phone = a_test_smartphone
+    order = Order(phone, 0)
+    captured = capsys.readouterr()
+    assert "Запрещено создавать заказ на ноль единиц купленного товара." in captured.out
+
+    phone.quantity = 0
+    order = Order(phone, 5)
+    captured = capsys.readouterr()
+    assert "Товар с нулевым количеством не может быть добавлен." in captured.out

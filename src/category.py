@@ -2,6 +2,7 @@ from typing import List, Union
 
 from src.base_abs import ProductContainer, ProductType
 from src.exceptions import ZeroQuantityError
+from src.product import Product
 
 
 class Category(ProductContainer):
@@ -45,8 +46,15 @@ class Category(ProductContainer):
     def add_product(self, product_to_add: ProductType) -> None:
         """Добавляет продукт в категорию."""
         try:
-            if not isinstance(product_to_add, self.__category_class):
+            if not isinstance(product_to_add, Product):
                 raise TypeError("Несовместимый тип товара.")
+            else:
+                # проверка на соответствие класса категории
+                try:
+                    if type(product_to_add) is not self.__category_class:
+                        raise TypeError("В категории товары должны иметь одинаковый класс.")
+                except AttributeError:
+                    pass
 
             if product_to_add.quantity == 0:
                 raise ZeroQuantityError()
@@ -59,6 +67,11 @@ class Category(ProductContainer):
             print(str(e))
         finally:
             print("Обработка добавления товара завершена.")
+
+    @property
+    def category_class(self) -> type[ProductType]:
+        """Геттер для отладочного получения класса категории."""
+        return self.__category_class
 
     @property
     def products_list(self) -> List[ProductType]:
