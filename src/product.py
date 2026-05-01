@@ -16,19 +16,24 @@ class Product(PrintMixin, BaseProduct):
 
     __products_list: List["Product"] = []
 
-    def __init__(self, name: str, description: str, price: float, quantity: int):
+    def __init__(self, name: str, description: str, price: float, quantity: int) -> None:
         self.name = name
         self.description = description
         self.__price = price
-        self.quantity = quantity
+
+        # Проверка не нулевого количества товара на складе
+        if quantity:
+            self.quantity = quantity
+        else:
+            raise ValueError("Товар с нулевым количеством не может быть добавлен.")
 
         Product.__products_list.append(self)
         super().__init__()
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"{self.name}, {self.__price} руб. Остаток: {self.quantity} шт."
 
-    def __add__(self, other: "Product"):
+    def __add__(self, other: "Product") -> float:
         if type(other) is Product:
             total_products_price = self.__price * self.quantity + other.__price * other.quantity
             return total_products_price
@@ -36,7 +41,7 @@ class Product(PrintMixin, BaseProduct):
             raise TypeError
 
     @classmethod
-    def new_product(cls, product_data: Dict[str, Any]):
+    def new_product(cls, product_data: Dict[str, Any]) -> "Product":
         """
         Создает новый объект Product на основе словаря данных.
 
@@ -63,12 +68,12 @@ class Product(PrintMixin, BaseProduct):
         return cls(name, description, price, quantity)
 
     @property
-    def price(self):
+    def price(self) -> float:
         """Геттер для получения цены товара."""
         return self.__price
 
     @price.setter
-    def price(self, new_price):
+    def price(self, new_price) -> None:
         """
         Сеттер для установки новой цены товара.
 

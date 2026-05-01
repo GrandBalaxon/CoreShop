@@ -104,3 +104,9 @@ def test_print_mixin(capsys):
     captured = capsys.readouterr()
 
     assert captured.out.strip() == "Product(Product #1, Description #1, 100.0, 1)"
+
+
+def test_zero_quantity_value_error():
+    """Тестируем, что нельзя создать товар с 0 единиц на складе."""
+    with pytest.raises(ValueError, match="Товар с нулевым количеством не может быть добавлен."):
+        Product("Name", "Disc", 6.99, 0)

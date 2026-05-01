@@ -1,6 +1,7 @@
 import pytest
 
 from src.category import Category
+from src.product import Product
 
 
 def test_category_class_object_creation(a_test_product):
@@ -51,7 +52,7 @@ def test_add_product_method(a_test_product):
     assert Category.product_count == 3
 
 
-def test_failed_attempt_to_add_not_a_product(a_test_product):
+def test_failed_attempt_to_add_not_a_product(a_test_product, capsys):
     """ Проверка на добавления объекта класса НЕ Product в объект Category через метод .add_product """
     class TestClass:
         def __init__(self, test_param: int):
@@ -67,9 +68,10 @@ def test_failed_attempt_to_add_not_a_product(a_test_product):
     assert Category.product_count == 2
 
     non_product = TestClass(6)
-    with pytest.raises(TypeError):
-        category_1.add_product(non_product)
+    category_1.add_product(non_product)
+    captured = capsys.readouterr()
 
+    assert "Несовместимый тип товара" in captured.out
     assert len(category_1.products_list) == 2
     assert Category.product_count == 2
 
@@ -107,3 +109,34 @@ def test_type_error_with_different_products_classes(a_test_product, a_test_smart
         category_1 = Category("Category name UNO",
                               "test description #1",
                               [a_test_smartphone, a_test_product])
+
+
+def test_zero_quantity_error(capsys):
+    """ Тестирование работы при добавлении товара с 0 единиц на складе в категорию. """
+    category_1 = Category("Cat Name", "test desc", [])
+
+    pr = Product("test name", "test description", 100.0, 1)
+    pr.quantity -= 1
+    category_1.add_product(pr)
+    captured = capsys.readouterr()
+
+    assert "Товар с нулевым количеством не может быть добавлен." in captured.out
+
+
+def test_same_class_requirement_for_category(category_obj, a_test_smartphone, capsys):
+    """Проверяем добавление товара иного класса в категорию."""
+    category_1 = category_obj
+    category_1.add_product(a_test_smartphone)
+    captured = capsys.readouterr()
+
+    assert a_test_smartphone.__class__ != category_1.category_class
+    assert "В категории товары должны иметь одинаковый класс." in captured.out
+
+
+def test_middle_price(category_obj, a_test_product):
+    """Тестируем работу метода определения средней цены товаров в категории."""
+    cat1 = category_obj
+    assert cat1.middle_price() == a_test_product.price
+
+    cat2 = Category("Name", "Disc", [])
+    assert cat2.middle_price() == 0
